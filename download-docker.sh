@@ -3,7 +3,7 @@
 # Install docker and docker-compose from binaries
 
 BASE_URL="https://download.docker.com/linux/static/stable/x86_64"
-version=`wget https://download.docker.com/linux/static/stable/x86_64/ -qO - | grep 'docker-\d' | tail -n 1 | grep -o '">\([^<]\+\)'`
+version=`wget $BASE_URL -qO - | grep 'docker-[0-9]\+' | tail -n 1 | grep -o '">\([^<]\+\)'`
 version=${version:2}
 
 wget "$BASE_URL/$version" -O - | tar -zx
