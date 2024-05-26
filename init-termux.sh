@@ -17,7 +17,7 @@ nudoku nethack -y
 
 # configuration and dotfiles
 echo "extra-keys = [[ESC, TAB, CTRL, ALT, {key: 'LEFT', popup: 'HOME'}, {key: 'DOWN', popup: 'PGDN'}, {key: 'UP', popup: 'PGUP'}, {key: 'RIGHT', popup: 'END'}]]" >> ~/.termux/termux.properties
-sh -c "$(curl -sL https://raw.githubusercontent.com/tr1nh/scripts/master/install-dotfiles.sh)"
+sh -c "$(curl -sL https://raw.githubusercontent.com/tr1nh/utils/master/install-dotfiles.sh)"
 
 # shortcuts
 mkdir /storage/emulated/0/.tr1nh
