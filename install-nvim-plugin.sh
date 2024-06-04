@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -x "$(command -v nvim)" ]; then
+if [ -z "$(command -v nvim)" ]; then
   echo "Neovim is not installed. Please install neovim first."
   exit 1
 fi
