@@ -388,8 +388,8 @@
     <!-- bottom panel for extra keys like Termux -->
     <style>
         .custom_panel {
-            position: absolute;
-            bottom: 0;
+            position: fixed;
+            top: 95%;
             left: 0;
             z-index: 100;
             padding: 0.5em;
@@ -427,9 +427,9 @@
         .custom_panel input.noVNC_hidden {
             display: none !important;
         }
-        canvas {
-            margin-top: 0 !important;
-        }
+		canvas {
+			margin-top: 0 !important;
+		}
     </style>
     <div class="custom_panel">
         <input type="image" alt="Esc" src="app/images/esc.svg"
@@ -452,6 +452,17 @@
             title="Send Ctrl-Alt-Del">
         <input type="image" alt="Keyboard" src="app/images/keyboard.svg"
             id="noVNC_keyboard_button" class="noVNC_button" title="Show Keyboard">
+        <input type="image" alt="Keyboard" src="app/images/drag.svg"
+            id="noVNC_fheight_button" class="noVNC_button" title="Adjust floating height">
     </div>
+
+    <script>
+        var customPanel = document.querySelector('.custom_panel');
+        document
+            .querySelector('#noVNC_fheight_button')
+            .addEventListener('touchmove', e => {
+                customPanel.style.top = e.touches[0].clientY + 'px';
+            });
+    </script>
  </body>
 </html>
