@@ -16,3 +16,4 @@ git clone --depth=1 https://github.com/mg979/vim-visual-multi.git
 git clone --depth=1 https://github.com/github/copilot.vim.git
 git clone --depth=1 https://github.com/CopilotC-Nvim/CopilotChat.nvim
 git clone --depth=1 https://github.com/nvim-telescope/telescope.nvim
+git clone --depth=1 https://github.com/nvim-lua/plenary.nvim
