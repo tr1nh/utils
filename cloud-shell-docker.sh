@@ -13,11 +13,15 @@ SCRIPT_VNC=.init-vnc.sh
 
 function create_script_alpine() {
 	echo "apk update &&
-	apk add xsel xclip xdotool xrandr tigervnc i3wm xterm \
-	font-noto-all 7zip bash bash-completion tzdata sudo screen tmux \
-	openssl openssh netcat-openbsd curl firefox \
-	ffmpeg maim imagemagick feh \
-	git vim neovim jq python3 py3-pip nodejs npm &&
+	apk add bash bash-completion sudo tzdata screen \
+	xsel xclip xdotool xrandr libxcvt \
+	i3wm dmenu libnotify dunst font-noto-all \
+	tigervnc remmina \
+	xterm ttyd \
+	7zip \
+	openssl openssh rsync sshfs wget curl netcat-openbsd firefox \
+	maim imagemagick feh ffmpeg mpv \
+	vim jq git build-base python3 py3-pip pipx nodejs npm &&
 
 	if [ ! \$(id -u '$CONTAINER_USERNAME') ]; then
 		(echo '$CONTAINER_PASSWORD';echo '$CONTAINER_PASSWORD') | adduser -s /bin/bash '$CONTAINER_USERNAME' &&
@@ -30,11 +34,15 @@ function create_script_alpine() {
 
 function create_script_debian() {
 	echo "apt update &&
-	apt install xsel xclip tigervnc-common tigervnc-standalone-server i3-wm \
-	p7zip-full bash bash-completion sudo man-db screen busybox tmux \
-	openssl openssh-server netcat-openbsd nmap wget curl proxychains tor firefox-esr \
-	ffmpeg maim imagemagick feh \
-	jq git vim python3 python3-pip build-essential -y &&
+	apt install bash bash-completion sudo screen man-db busybox \
+	xsel xclip xdotool xserver-xorg-core \
+	i3-wm libnotify-bin dunst dmenu fonts-noto-core fonts-noto-cjk fonts-noto-extra \
+	tigervnc-standalone-server tigervnc-common tigervnc-xorg-extension remmina remmina-plugin-vnc remmina-plugin-rdp \
+	rxvt-unicode \
+	p7zip-full unrar \
+	openssl openssh-server rsync sshfs wget curl netcat-openbsd firefox-esr \
+	maim imagemagick feh ffmpeg \
+	vim jq git build-essential python3 python3-pip pipx -y &&
 
 	if [ ! \$(id -u '$CONTAINER_USERNAME') ]; then
 		useradd -m -s /bin/bash '$CONTAINER_USERNAME' &&
@@ -73,7 +81,7 @@ if [ $(sudo docker ps | grep -o "$CONTAINER_NAME") ]; then
 fi
 
 # if container is not running, then start and attach container
-if [ $(sudo docker ps -a | grep -o "$CONTAINER_NAME") ]; then
+if [[ $(sudo docker ps -a | grep -o "$CONTAINER_NAME") ]]; then
 	echo "container '$CONTAINER_NAME' is stopped"
 	echo "trying to start container '$CONTAINER_NAME'..."
 	sudo docker start -ai "$CONTAINER_NAME"
