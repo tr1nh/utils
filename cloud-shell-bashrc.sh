@@ -18,7 +18,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
-HISTTIMEFORTMAT='%Y-%m-%d %H:%M:%S  '
+HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -133,14 +133,10 @@ export DISPLAY=:1
 if [[ -z $(which busybox) ]]; then
     echo "installing necessary packages..."
     sudo apt update
-    sudo apt install screen busybox xclip xdotool tigervnc-standalone-server tigervnc-common i3 dmenu -y
+    sudo apt install screen busybox xclip xdotool tigervnc-standalone-server tigervnc-common xterm i3 dmenu -y
 fi
 
-# check for noVNC dependencies
-if [[ ! -d "$HOME/noVNC" ]]; then
-    git clone --depth=1 https://github.com/novnc/noVNC
-    curl -L https://raw.githubusercontent.com/tr1nh/utils/master/vnc_mobile.html -o "$HOME/noVNC/vnc_mobile.html"
-fi
+# check for script to start noVNC
 if [[ ! -f "$HOME/start-novnc.sh" ]]; then
     curl -LO https://raw.githubusercontent.com/tr1nh/utils/master/start-novnc.sh
 fi
