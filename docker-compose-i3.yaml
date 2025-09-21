@@ -1,0 +1,25 @@
+---
+  services:
+    dev:
+      image: debian
+      restart: unless-stopped
+      environment:
+        TZ: Asia/Ho_Chi_Minh
+        LANG: en_US.UTF-8
+        TERM: xterm-256color
+        EDITOR: vim
+      working_dir: /home/zero
+      command: |
+        sh -c '
+        apt update &&
+        apt install locales procps busybox sudo bash bash-completion tmux openssh-server openssh-client curl jq git vim python3 -y &&
+        apt install tigervnc-common tigervnc-standalone-server i3 dmenu fonts-noto rxvt-unicode -y &&
+        sed "s/# \(en_US.UTF-8.*\)/\1/" /etc/locale.gen -i; locale-gen;
+        curl -L github.com/tr1nh/dotfiles/archive/refs/heads/master.tar.gz | tar zxv --strip-components=1 &&
+        curl -LO github.com/tr1nh/utils/raw/refs/heads/master/start-novnc.sh &&
+        curl -L "$$(curl -sL github.com/tr1nh/utils/raw/refs/heads/master/link.txt | grep aichat)" | tar zxv && mv aichat /usr/bin/ &&
+        grep zero /etc/passwd || (useradd -s /bin/bash zero; echo "zero ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers);
+        grep zero /etc/passwd || echo "zero:changeme" | chpasswd;
+        ls | grep .passwd || (echo "changeme"; echo "changeme"; echo "n") | vncpasswd .passwd;
+        chown -R zero /home/zero;
+        su -c "bash start-novnc.sh" zero'
