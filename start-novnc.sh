@@ -23,7 +23,7 @@ if [[ ! -d "$HOME/noVNC" ]]; then
 fi
 
 ${_NOVNC_PATH}/utils/novnc_proxy --listen ${_PORT} --vnc "127.0.0.1:$_VNC_PORT" &
-Xvnc ${_DISPLAY} -geometry ${_GEOMETRY} -rfbauth "$_NOVNC_PASSWD" -rfbport ${_VNC_PORT} &
+Xvnc ${_DISPLAY} -geometry ${_GEOMETRY} -rfbauth "$_NOVNC_PASSWD" -rfbport ${_VNC_PORT} -AcceptCutText 0 -SendCutText 0 &
 
 sleep 2
 DISPLAY=${_DISPLAY} i3
